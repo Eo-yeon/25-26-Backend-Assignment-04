@@ -2,7 +2,6 @@ package com.gdg.jwtonlinelecture.controller;
 
 import com.gdg.jwtonlinelecture.domain.Student;
 import com.gdg.jwtonlinelecture.dto.StudentDto;
-import com.gdg.jwtonlinelecture.dto.StudentResponseDto;
 import com.gdg.jwtonlinelecture.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,17 +21,25 @@ public class StudentController {
     public ResponseEntity<Student> addStudent(
             @PathVariable Long instructorId,
             @RequestBody StudentDto studentDto) {
-
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(studentService.addStudent(instructorId, studentDto));
     }
 
     @GetMapping("/{instructorId}")
-    public ResponseEntity<List<StudentResponseDto>> getStudentsByInstructor(@PathVariable Long instructorId) {
-        List<StudentResponseDto> dtos = studentService.getStudentsByInstructor(instructorId)
-                .stream()
-                .map(student -> new StudentResponseDto(student.getId(), student.getName(), student.getEmail()))
-                .toList();
-        return ResponseEntity.ok(dtos);
+    public ResponseEntity<List<Student>> getStudentsByInstructor(@PathVariable Long instructorId) {
+        return ResponseEntity.ok(studentService.getStudentsByInstructor(instructorId));
+    }
+
+    @PatchMapping("/{studentId}")
+    public ResponseEntity<Student> updateStudent(
+            @PathVariable Long studentId,
+            @RequestBody StudentDto studentDto) {
+        return ResponseEntity.ok(studentService.updateStudent(studentId, studentDto));
+    }
+
+    @DeleteMapping("/{studentId}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
+        studentService.deleteStudent(studentId);
+        return ResponseEntity.noContent().build();
     }
 }

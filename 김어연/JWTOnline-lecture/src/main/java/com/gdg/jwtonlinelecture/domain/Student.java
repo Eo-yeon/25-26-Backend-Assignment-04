@@ -1,5 +1,6 @@
 package com.gdg.jwtonlinelecture.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class Student {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "instructor_id")
+    @JsonIgnore
     private Instructor instructor;
 
     @Builder
@@ -30,5 +32,12 @@ public class Student {
         this.name = name;
         this.email = email;
         this.instructor = instructor;
+    }
+
+    public Student update(String name, String email, Instructor instructor) {
+        this.name = name;
+        this.email = email;
+        this.instructor = instructor;
+        return this;
     }
 }
