@@ -21,13 +21,8 @@ public class StudentService {
 
     @Transactional
     public Student addStudent(Long instructorId, StudentDto studentDto) {
-        Instructor instructor = instructorRepository.findById(instructorId)
-                .orElseThrow(() -> new EntityNotFoundException("Instructor not found"));
-        Student student = Student.builder()
-                .name(studentDto.getName())
-                .email(studentDto.getEmail())
-                .instructor(instructor)
-                .build();
+        Instructor instructor = instructorRepository.findById(instructorId).orElseThrow(() -> new EntityNotFoundException("Instructor not found"));
+        Student student = Student.builder().name(studentDto.getName()).email(studentDto.getEmail()).instructor(instructor).build();
         return studentRepository.save(student);
     }
 
@@ -38,15 +33,9 @@ public class StudentService {
 
     @Transactional
     public Student updateStudent(Long studentId, StudentDto studentDto) {
-        Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new EntityNotFoundException("Student not found"));
-        Instructor instructor = instructorRepository.findById(studentDto.getInstructorId())
-                .orElseThrow(() -> new EntityNotFoundException("Instructor not found"));
-        return studentRepository.save(student.update(
-                studentDto.getName(),
-                studentDto.getEmail(),
-                instructor
-        ));
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student not found"));
+        Instructor instructor = instructorRepository.findById(studentDto.getInstructorId()).orElseThrow(() -> new EntityNotFoundException("Instructor not found"));
+        return studentRepository.save(student.update(studentDto.getName(), studentDto.getEmail(), instructor));
     }
 
     @Transactional
