@@ -2,7 +2,7 @@ package com.gdg.jwtonlinelecture.service;
 
 import com.gdg.jwtonlinelecture.domain.Instructor;
 import com.gdg.jwtonlinelecture.domain.Student;
-import com.gdg.jwtonlinelecture.dto.StudentDto;
+import com.gdg.jwtonlinelecture.dto.StudentRequestDto;
 import com.gdg.jwtonlinelecture.dto.StudentResponseDto;
 import com.gdg.jwtonlinelecture.repository.InstructorRepository;
 import com.gdg.jwtonlinelecture.repository.StudentRepository;
@@ -21,13 +21,13 @@ public class StudentService {
     private final InstructorRepository instructorRepository;
 
     @Transactional
-    public StudentResponseDto addStudent(Long instructorId, StudentDto studentDto) {
+    public StudentResponseDto addStudent(Long instructorId, StudentRequestDto studentRequestDto) {
         Instructor instructor = instructorRepository.findById(instructorId)
                 .orElseThrow(() -> new EntityNotFoundException("Instructor not found"));
 
         Student student = Student.builder()
-                .name(studentDto.getName())
-                .email(studentDto.getEmail())
+                .name(studentRequestDto.getName())
+                .email(studentRequestDto.getEmail())
                 .instructor(instructor)
                 .build();
 
@@ -44,16 +44,16 @@ public class StudentService {
     }
 
     @Transactional
-    public StudentResponseDto updateStudent(Long studentId, StudentDto studentDto) {
+    public StudentResponseDto updateStudent(Long studentId, StudentRequestDto studentRequestDto) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("Student not found"));
 
-        Instructor instructor = instructorRepository.findById(studentDto.getInstructorId())
+        Instructor instructor = instructorRepository.findById(studentRequestDto.getInstructorId())
                 .orElseThrow(() -> new EntityNotFoundException("Instructor not found"));
 
         Student updatedStudent = student.update(
-                studentDto.getName(),
-                studentDto.getEmail(),
+                studentRequestDto.getName(),
+                studentRequestDto.getEmail(),
                 instructor
         );
 

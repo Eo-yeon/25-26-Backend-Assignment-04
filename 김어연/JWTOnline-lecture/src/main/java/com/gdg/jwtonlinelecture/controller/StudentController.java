@@ -1,6 +1,6 @@
 package com.gdg.jwtonlinelecture.controller;
 
-import com.gdg.jwtonlinelecture.dto.StudentDto;
+import com.gdg.jwtonlinelecture.dto.StudentRequestDto;
 import com.gdg.jwtonlinelecture.dto.StudentResponseDto;
 import com.gdg.jwtonlinelecture.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class StudentController {
     @PostMapping("/{instructorId}")
     public ResponseEntity<StudentResponseDto> addStudent(
             @PathVariable Long instructorId,
-            @RequestBody StudentDto studentDto) {
-        StudentResponseDto responseDto = studentService.addStudent(instructorId, studentDto);
+            @RequestBody StudentRequestDto studentRequestDto) {
+        StudentResponseDto responseDto = studentService.addStudent(instructorId, studentRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
@@ -34,8 +34,8 @@ public class StudentController {
     @PatchMapping("/{studentId}")
     public ResponseEntity<StudentResponseDto> updateStudent(
             @PathVariable Long studentId,
-            @RequestBody StudentDto studentDto) {
-        StudentResponseDto updatedStudent = studentService.updateStudent(studentId, studentDto);
+            @RequestBody StudentRequestDto studentRequestDto) {
+        StudentResponseDto updatedStudent = studentService.updateStudent(studentId, studentRequestDto);
         return ResponseEntity.ok(updatedStudent);
     }
 
