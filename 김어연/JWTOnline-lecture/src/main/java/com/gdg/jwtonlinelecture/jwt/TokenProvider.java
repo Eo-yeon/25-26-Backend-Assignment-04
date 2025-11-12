@@ -58,7 +58,7 @@ public class TokenProvider {
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(ROLE_CLAIM).toString().split(","))
-                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                        .map(role -> new SimpleGrantedAuthority(role.toString()))
                         .collect(Collectors.toList());
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(claims.getSubject(), "", authorities);
