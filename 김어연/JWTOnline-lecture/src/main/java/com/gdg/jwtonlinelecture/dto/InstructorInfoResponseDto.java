@@ -1,5 +1,6 @@
 package com.gdg.jwtonlinelecture.dto;
 
+import com.gdg.jwtonlinelecture.domain.Role;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,5 +10,5 @@ public class InstructorInfoResponseDto {
     private Long id;
     private String name;
     private String title;
-    private String role;
+    private Role role;
 }

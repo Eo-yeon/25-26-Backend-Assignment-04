@@ -1,11 +1,13 @@
 package com.gdg.jwtonlinelecture.service;
 
 import com.gdg.jwtonlinelecture.domain.Instructor;
+import com.gdg.jwtonlinelecture.domain.Role;
 import com.gdg.jwtonlinelecture.dto.InstructorInfoResponseDto;
 import com.gdg.jwtonlinelecture.dto.InstructorSignUpDto;
 import com.gdg.jwtonlinelecture.dto.TokenDto;
 import com.gdg.jwtonlinelecture.jwt.TokenProvider;
 import com.gdg.jwtonlinelecture.repository.InstructorRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class InstructorService {
                 .name(dto.getName())
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .title(dto.getTitle())
-                .role("ROLE_INSTRUCTOR")
+                .role(Role.ROLE_INSTRUCTOR)
                 .build());
 
         String accessToken = tokenProvider.createAccessToken(instructor);
