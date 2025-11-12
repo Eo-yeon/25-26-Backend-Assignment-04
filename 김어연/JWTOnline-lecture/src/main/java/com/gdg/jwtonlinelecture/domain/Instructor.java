@@ -28,15 +28,16 @@ public class Instructor {
     @Column(nullable = false)
     private String title;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String role;
+    private Role role;
 
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Student> students = new ArrayList<>();
 
     @Builder
-    public Instructor(Long id, String name, String password, String title, String role) {
+    public Instructor(Long id, String name, String password, String title, Role role) {
         this.id = id;
         this.name = name;
         this.password = password;
