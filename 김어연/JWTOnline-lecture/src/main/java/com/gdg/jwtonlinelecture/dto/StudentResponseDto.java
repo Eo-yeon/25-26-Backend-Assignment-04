@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
-@AllArgsConstructor
 public class StudentResponseDto {
     private Long id;
     private String name;
