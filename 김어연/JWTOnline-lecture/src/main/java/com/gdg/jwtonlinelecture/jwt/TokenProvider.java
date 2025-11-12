@@ -61,10 +61,10 @@ public class TokenProvider {
                         .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                         .collect(Collectors.toList());
 
-        UsernamePasswordAuthenticationToken authenication = new UsernamePasswordAuthenticationToken(claims.getSubject(), "", authorities);
-        authenication.setDetails(claims);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(claims.getSubject(), "", authorities);
+        authentication.setDetails(claims);
 
-        return authenication;
+        return authentication;
     }
 
     public String resolveToken(HttpServletRequest request) { // 토큰 분해/분석
